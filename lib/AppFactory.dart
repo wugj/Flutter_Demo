@@ -9,6 +9,8 @@ import 'StateTest.dart';
 import 'Signature.dart';
 import 'AnimationDemo.dart';
 import 'TextFieldDemo.dart';
+import 'RouteDemo.dart';
+import 'PageRouter.dart';
 
 class AppFactoroy{
 
@@ -19,6 +21,7 @@ class AppFactoroy{
   static const int WIDGET_SIGNATURE = 5;
   static const int WIDGET_ANIMATION_TEST = 6;
   static const int WIDGET_TEXT_FIELD_TEST = 7;
+  static const int WIDGET_ROUTE_TEST = 8;
 
   Widget getWidget(int widget){
     switch(widget){
@@ -36,18 +39,21 @@ class AppFactoroy{
         return buildDemoWidget("动画测试", new AnimationDemo());
       case WIDGET_TEXT_FIELD_TEST:
         return buildDemoWidget("输入测试", new TextFieldDemo());
+      case WIDGET_ROUTE_TEST:
+        return buildDemoWidget("页面跳转测试", new RouteDemo());
     }
     return null;
   }
 
 
 
-  Widget buildDemoWidget(String test, Widget body){
+  static Widget buildDemoWidget(String test, Widget body){
     return new MaterialApp(
       home: new Scaffold(
         appBar: new AppBar(title: new Text(test),),
         body: body,
       ),
+      routes: PageRounter().rountMap,
     );
   }
 
@@ -57,6 +63,9 @@ class AppFactoroy{
         appBar: new AppBar(title: new Text("布局测试"),),
         body: new LayoutDemoWidget(),
       ),
+      routes: <String, WidgetBuilder>{
+
+      },
     );
   }
 
