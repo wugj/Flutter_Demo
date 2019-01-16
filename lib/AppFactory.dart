@@ -8,6 +8,7 @@ import 'package:startup_namer/LayoutTest.dart';
 import 'StateTest.dart';
 import 'Signature.dart';
 import 'AnimationDemo.dart';
+import 'TextFieldDemo.dart';
 
 class AppFactoroy{
 
@@ -17,6 +18,7 @@ class AppFactoroy{
   static const int WIDGET_STATE_TEST = 4;
   static const int WIDGET_SIGNATURE = 5;
   static const int WIDGET_ANIMATION_TEST = 6;
+  static const int WIDGET_TEXT_FIELD_TEST = 7;
 
   Widget getWidget(int widget){
     switch(widget){
@@ -32,6 +34,8 @@ class AppFactoroy{
         return buildDemoWidget("签名测试", new Signature());
       case WIDGET_ANIMATION_TEST:
         return buildDemoWidget("动画测试", new AnimationDemo());
+      case WIDGET_TEXT_FIELD_TEST:
+        return buildDemoWidget("输入测试", new TextFieldDemo());
     }
     return null;
   }

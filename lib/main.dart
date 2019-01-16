@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 void main() {
 
 //  debugPaintSizeEnabled = true;
-  runApp(new AppFactoroy().getWidget(AppFactoroy.WIDGET_ANIMATION_TEST));
+  runApp(new AppFactoroy().getWidget(AppFactoroy.WIDGET_TEXT_FIELD_TEST));
 }
 
 
