@@ -99,6 +99,7 @@ class WidgetUitl {
   }
 
   static Widget buildText({String text = "贝吉塔", Color color = Colors.black45, double fontsize = 12}){
+
     return new Text(
       text,
       style: new TextStyle(fontSize: fontsize, color: color,),
@@ -111,7 +112,7 @@ class WidgetUitl {
       height: h,
       width: w,
       alignment: Alignment.center,
-      child: buildText(text: text, color: Colors.red),
+      child: Padding(padding: EdgeInsets.all(4), child: buildText(text: text, color: Colors.red),),
     );
   }
 

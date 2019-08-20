@@ -1,0 +1,4 @@
+
+enum StateAction{
+  increment
+}

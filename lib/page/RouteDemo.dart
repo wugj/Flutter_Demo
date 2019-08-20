@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'AppFactory.dart';
-import 'Constans.dart';
+import 'package:startup_namer/common/AppFactory.dart';
 
 class RouteDemo extends StatelessWidget {
   @override
@@ -44,7 +43,8 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppFactoroy.buildDemoWidget(
+    AppFactoroy factoroy = new AppFactoroy();
+    return factoroy.buildDemoWidget(
         "secondPage",
         Center(
           child: Column(

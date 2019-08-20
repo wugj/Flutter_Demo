@@ -2,18 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:startup_namer/LayoutDemo.dart';
-import 'package:startup_namer/ShoppingList.dart';
-import 'package:startup_namer/LayoutTest.dart';
-import 'StateTest.dart';
-import 'Signature.dart';
-import 'AnimationDemo.dart';
-import 'TextFieldDemo.dart';
-import 'RouteDemo.dart';
-import 'PageRouter.dart';
+import 'package:startup_namer/common/PageRouter.dart';
+import 'package:startup_namer/page/AnimationDemo.dart';
+import 'package:startup_namer/page/LayoutDemo.dart';
+import 'package:startup_namer/page/RouteDemo.dart';
+import 'package:startup_namer/page/ShoppingList.dart';
+import 'package:startup_namer/page/LayoutTest.dart';
+import 'package:startup_namer/page/Signature.dart';
+import 'package:startup_namer/page/StateTest.dart';
+import 'package:startup_namer/page/TextFieldDemo.dart';
+import 'package:startup_namer/page/ThemeDemo.dart';
+import 'package:startup_namer/main_test.dart';
 
 class AppFactoroy{
 
+  static const int WIDGET_MAIN = 0;
   static const int WIDGET_SHOPPING = 1;
   static const int WIDGET_LAYOUT = 2;
   static const int WIDGET_LAYOUT_TEST = 3;
@@ -22,9 +25,13 @@ class AppFactoroy{
   static const int WIDGET_ANIMATION_TEST = 6;
   static const int WIDGET_TEXT_FIELD_TEST = 7;
   static const int WIDGET_ROUTE_TEST = 8;
+  static const int WIDGET_THEME_TEST = 9;
+  static const int WIDGET_MAIN_TEST = 10;
 
   Widget getWidget(int widget){
     switch(widget){
+      case WIDGET_MAIN:
+        return buildDemoWidget("测试首页", new MainTest());
       case WIDGET_SHOPPING:
         return getShoppingListWidget();
       case WIDGET_LAYOUT:
@@ -41,13 +48,17 @@ class AppFactoroy{
         return buildDemoWidget("输入测试", new TextFieldDemo());
       case WIDGET_ROUTE_TEST:
         return buildDemoWidget("页面跳转测试", new RouteDemo());
+      case WIDGET_THEME_TEST:
+        return buildDemoWidget("主题测试", new ThemeTestRoute());
+      case WIDGET_MAIN_TEST:
+        return buildDemoWidget("测试页面测试", new MainTest());
     }
     return null;
   }
 
 
 
-  static Widget buildDemoWidget(String test, Widget body){
+  Widget buildDemoWidget(String test, Widget body){
     return new MaterialApp(
       home: new Scaffold(
         appBar: new AppBar(title: new Text(test),),
@@ -70,12 +81,11 @@ class AppFactoroy{
   }
 
   Widget getShoppingListWidget(){
-    return new MaterialApp(
-      home: new ShoppingList(products: [
+    return new ShoppingList(products: [
         new Product(name: "Eggs"),
         new Product(name: "Flours"),
         new Product(name: "Chocolate chips")
-      ],),
+      ]
     );
   }
 }

@@ -1,7 +1,7 @@
 
 import 'package:flutter/widgets.dart';
-import 'Constans.dart';
-import 'RouteDemo.dart';
+import 'package:startup_namer/common/Constans.dart';
+import 'package:startup_namer/page/RouteDemo.dart';
 
 
 class PageRounter{

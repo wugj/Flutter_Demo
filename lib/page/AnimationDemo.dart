@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'WidgetUtil.dart';
+import 'package:startup_namer/WidgetUtil.dart';
 import 'Transition.dart';
 
 class AnimationDemo extends StatelessWidget{

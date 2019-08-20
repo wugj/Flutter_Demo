@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'WidgetUtil.dart';
+import 'package:startup_namer/WidgetUtil.dart';
 
 class LayoutTest extends StatelessWidget {
 
