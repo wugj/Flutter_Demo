@@ -15,11 +15,14 @@ void main() {
   StoreManager.instance().initStore();
 
 //  debugPaintSizeEnabled = true;
-  runApp(new AppFactoroy().getWidget(AppFactoroy.WIDGET_MAIN_TEST));
+//  runApp(new AppFactoroy().getWidget(AppFactoroy.WIDGET_MAIN_TEST));
 //  runApp(new MyWidget());
 //  runApp(MaterialApp(
 //    home: WidgetFactory.buildSimpelPageWidget("素材测试0", new MaterialTest(0)),
 //  ));
+  runApp(MaterialApp(
+    home: new AppFactoroy().getWidget(AppFactoroy.WIDGET_MAIN_TEST),
+  ));
 }
 
 class MyWidget extends StatelessWidget{

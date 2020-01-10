@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:startup_namer/page/AnimateSwitcherDemo.dart';
 import 'package:startup_namer/page/AnimationDemo.dart';
 import 'package:startup_namer/page/BannerPageDemo.dart';
 import 'package:startup_namer/page/CartProviderDemo.dart';
 import 'package:startup_namer/page/Counter.dart';
+import 'package:startup_namer/page/CustomPageScrollViewDemo.dart';
+import 'package:startup_namer/page/CustomWidgetDemo.dart';
 import 'package:startup_namer/page/LayoutDemo.dart';
 import 'package:startup_namer/page/LayoutTest.dart';
+import 'package:startup_namer/page/NodeTreePage.dart';
+import 'package:startup_namer/page/ReFreshDemo.dart';
 import 'package:startup_namer/page/RouteDemo.dart';
 import 'package:startup_namer/page/ShoppingList.dart';
 import 'package:startup_namer/page/Signature.dart';
+import 'package:startup_namer/page/SliverDemo.dart';
 import 'package:startup_namer/page/StateTest.dart';
 import 'package:startup_namer/page/TextFieldDemo.dart';
 import 'package:startup_namer/page/ThemeDemo.dart';
@@ -18,6 +24,8 @@ import 'package:startup_namer/page/pointer_event_demo.dart';
 import 'package:startup_namer/common/AppFactory.dart';
 import 'package:startup_namer/page/redux/ReduxFiresPage.dart';
 import 'package:startup_namer/page/viewpager/tab_bar_page_demo.dart';
+
+import 'page/NotifactionListenerScrollViewDemo.dart';
 
 class MainTest extends StatelessWidget {
   AppFactoroy _factoroy = AppFactoroy();
@@ -40,6 +48,12 @@ class MainTest extends StatelessWidget {
                         ]
                 )),
                 buildWidget(context, "LayoutDemo", new LayoutDemoWidget()),
+                buildWidget(context, "node Demo", new NodeTreePageDemo()),
+                buildWidget(context, "吸顶 sliver page Demo", new SliverPageDemo(), isAppbar: false),
+                buildWidget(context, "自定义 view Demo", new CustomWidgetPage()),
+                buildWidget(context, "自定义 pageScrollView", new CustomPageScrollViewDemoPage()),
+                buildWidget(context, "监听 滚动 进度scrollview", new LTscrollbarDemo()),
+                buildWidget(context, "animatedSwitcher Demo", new AnimateSwitcherDemo(), isAppbar: false),
                 buildWidget(context, "横竖布局测试", new LayoutTest()),
                 buildWidget(context, "状态测试", new StateTest()),
                 buildWidget(context, "签名测试", new Signature()),
@@ -55,6 +69,7 @@ class MainTest extends StatelessWidget {
                 buildWidget(context, "banner测试", new BannerPage()),
                 buildWidget(context, "计数器InheritedWidget测试", new CounterDemo()),
                 buildWidget(context, "购物车Provider测试", new CartProviderDemo()),
+                buildWidget(context, "刷新加载组件", new ReFreshDemo()),
               ],
             ),
           ),

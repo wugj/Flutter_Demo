@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class PictrueData{
@@ -49,14 +51,26 @@ class _BannerPageState extends State<BannerPage> {
 
   PageController _controller = new PageController();
 
+  Timer _timer;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    _startTimer();
   }
 
+  void _startTimer(){
+    Timer _timer = new Timer.periodic( Duration(seconds: 2 ), (Timer timer){
+      _controller.animateToPage((_currentIndex + 1) % pictrueList.length, duration: Duration(milliseconds: 500), curve: Curves.ease);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+  }
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -72,48 +86,57 @@ class _BannerPageState extends State<BannerPage> {
     return Container(
      child: Column(
        children: <Widget>[
-         AnimatedContainer(
-           duration: Duration(milliseconds: 500),
-//           width: double.infinity,
-           height: _screenWidth * pictrueData.height / pictrueData.width,
-           curve: Curves.ease,
-           child: Stack(
-             children: <Widget>[
-              PageView(
-                     controller: _controller,
-                     onPageChanged: (index)  {
-                       _currentIndex = index;
-                       setState((){});
-                     },
-                     children: pictrueList.map((pictrueData) =>
-                         FadeInImage.assetNetwork(
-                             placeholder: "images/loading_img.gif",
-                             image: pictrueData.url,
-                             fit: BoxFit.cover,
-                           alignment: Alignment.center,
-                         )
-                     ).toList(),
 
-               ),
-               Positioned(
-                   bottom: 10,
-                   right: 10,
-                   child: Container(
-                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(0, 0, 0, 0.5),
-                       borderRadius: BorderRadius.circular(40.0)
-                     ),
-                     child: Text("$_currentIndex/${pictrueList.length}", style: TextStyle(color: Colors.white),),
-                   )
-               )
-             ],
-           ),
-         ),
     Expanded(
       flex: 1,
       child: ListView.builder(
           itemBuilder: (BuildContext context, int i){
+
+            if(i == 0) {
+             return Container(
+//           flex: 1,
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 500),
+//           width: double.infinity,
+                  height: _screenWidth * pictrueData.height / pictrueData.width,
+                  curve: Curves.ease,
+                  child: Stack(
+                    children: <Widget>[
+                      PageView(
+                        controller: _controller,
+                        onPageChanged: (index)  {
+                          print("回调");
+                          _currentIndex = index;
+                          setState((){});
+                        },
+                        children: pictrueList.map((pictrueData) =>
+                            FadeInImage.assetNetwork(
+                              placeholder: "images/loading_img.gif",
+                              image: pictrueData.url,
+                              fit: BoxFit.cover,
+                              alignment: Alignment.center,
+                            )
+                        ).toList(),
+
+                      ),
+                      Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(0, 0, 0, 0.5),
+                                borderRadius: BorderRadius.circular(40.0)
+                            ),
+                            child: Text("$_currentIndex/${pictrueList.length}", style: TextStyle(color: Colors.white),),
+                          )
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }
+
             if(i.isOdd){
               return Divider();
             }
