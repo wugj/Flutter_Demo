@@ -1,7 +1,6 @@
 import 'dart:developer' as prefix0;
 import 'dart:math';
 
-import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 
 class CustomPageScrollViewDemoPage extends StatefulWidget {
@@ -85,8 +84,12 @@ class _CustomPageScrollViewDemoPageState extends State<CustomPageScrollViewDemoP
 
   Color get randomColor =>
       Color((Random().nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(1.0);
+
+
 }
 
+void println(String s) {
+}
 class PageScrollPhysics2 extends ScrollPhysics {
   /// Creates physics for a [PageView].
   const PageScrollPhysics2({ ScrollPhysics parent }) : super(parent: parent);

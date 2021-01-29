@@ -9,6 +9,9 @@ description: A new Flutter application.
 # Read more about versioning at semver.org.
 version: 1.0.0+1
 
+module:
+  androidX: true # Add this line.
+
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
@@ -25,7 +28,7 @@ dependencies:
 
   flutter_gallery_assets: ^0.1.7
   shrine_images: ^1.1.1
-  fish_redux: ^0.2.4
+  stack_trace: ^1.9.3
 
 dev_dependencies:
   flutter_test:

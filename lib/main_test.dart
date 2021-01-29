@@ -9,8 +9,10 @@ import 'package:startup_namer/page/CustomWidgetDemo.dart';
 import 'package:startup_namer/page/LayoutDemo.dart';
 import 'package:startup_namer/page/LayoutTest.dart';
 import 'package:startup_namer/page/NodeTreePage.dart';
+import 'package:startup_namer/page/PartRefreshWidgetTest.dart';
 import 'package:startup_namer/page/ReFreshDemo.dart';
 import 'package:startup_namer/page/RouteDemo.dart';
+import 'package:startup_namer/page/RowTest.dart';
 import 'package:startup_namer/page/ShoppingList.dart';
 import 'package:startup_namer/page/Signature.dart';
 import 'package:startup_namer/page/SliverDemo.dart';
@@ -18,7 +20,6 @@ import 'package:startup_namer/page/StateTest.dart';
 import 'package:startup_namer/page/TextFieldDemo.dart';
 import 'package:startup_namer/page/ThemeDemo.dart';
 import 'package:startup_namer/common/WidgetFactory.dart';
-import 'package:startup_namer/page/fishredux/firstPage/FishFirstPage.dart';
 import 'package:startup_namer/page/key_test.dart';
 import 'package:startup_namer/page/pointer_event_demo.dart';
 import 'package:startup_namer/common/AppFactory.dart';
@@ -47,6 +48,8 @@ class MainTest extends StatelessWidget {
                           new Product(name: "Chocolate chips")
                         ]
                 )),
+                buildWidget(context, "RowTest", new RowTest()),
+                buildWidget(context, "局部刷新组件", PartRefreshWidgetList()),
                 buildWidget(context, "LayoutDemo", new LayoutDemoWidget()),
                 buildWidget(context, "node Demo", new NodeTreePageDemo()),
                 buildWidget(context, "吸顶 sliver page Demo", new SliverPageDemo(), isAppbar: false),
@@ -65,7 +68,6 @@ class MainTest extends StatelessWidget {
                 buildWidget(context, "key测试1", new KeyTestDemo()),
                 buildWidget(context, "tabbar测试", new TabBarPageDemo()),
                 buildWidget(context, "redux测试", new ReduxTestFirstPage()),
-                buildWidget(context, "咸鱼 redux测试", FishFirstPage().buildPage(null), isAppbar: false),
                 buildWidget(context, "banner测试", new BannerPage()),
                 buildWidget(context, "计数器InheritedWidget测试", new CounterDemo()),
                 buildWidget(context, "购物车Provider测试", new CartProviderDemo()),
