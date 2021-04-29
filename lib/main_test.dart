@@ -3,6 +3,7 @@ import 'package:startup_namer/page/AnimateSwitcherDemo.dart';
 import 'package:startup_namer/page/AnimationDemo.dart';
 import 'package:startup_namer/page/BannerPageDemo.dart';
 import 'package:startup_namer/page/CartProviderDemo.dart';
+import 'package:startup_namer/page/CartProviderDemo2.dart';
 import 'package:startup_namer/page/Counter.dart';
 import 'package:startup_namer/page/CustomPageScrollViewDemo.dart';
 import 'package:startup_namer/page/CustomWidgetDemo.dart';

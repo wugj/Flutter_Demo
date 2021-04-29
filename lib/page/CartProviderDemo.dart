@@ -1,105 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:startup_namer/page/CustomPageScrollViewDemo.dart';
 
-class InheritedProvider<T> extends InheritedWidget{
+// ignore: must_be_immutable
+class InheritedProvider<T> extends InheritedWidget {
+
+  InheritedProvider({
+    this.data,
+    Widget child
+  }) : super(child: child);
 
   final T data;
 
-  InheritedProvider({@required this.data, Widget child}):super(child: child);
-
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) {
-    // TODO: implement updateShouldNotify
+  bool updateShouldNotify(InheritedProvider oldWidget) {
     return true;
   }
 
 }
+class ChangeNotifierProvider<T extends ChangeNotifier> extends StatefulWidget {
 
-Type _typeOf<T>() => T;
+  ChangeNotifierProvider({
+    Key key,
+    @required this.data,
+    @required this.child
 
-class ChangeNotiferProvider<T extends ChangeNotifier> extends StatefulWidget {
+}): super(key: key);
 
-  final Widget child;
-  final T data;
+  T data;
+  Widget child;
 
+  static T of<T>(BuildContext context, {bool isListener = true}){
+    // final type = _typeOf<InheritedProvider<T>>();
+    // final InheritedProvider provider = isListener  ?
+    // context.dependOnInheritedWidgetOfExactType<InheritedProvider<T>>() :
+    // context.getElementForInheritedWidgetOfExactType<InheritedProvider<T>>();
+    // return provider.data;
 
-  ChangeNotiferProvider({Key key, this.child, this.data}):super(key: key);
-
-  //定义一个便捷方法，方便子树中的widget获取共享数据
-  static T of<T>(BuildContext context, {bool isListener = true}) {
-    final type = _typeOf<InheritedProvider<T>>();
-    final provider =  isListener ? context.inheritFromWidgetOfExactType(type) as InheritedProvider<T> :
-          context.ancestorInheritedElementForWidgetOfExactType(type)?.widget as InheritedProvider<T>;
+    // final type = _typeOf<InheritedProvider<T>>();
+    final provider =  isListener ? context.dependOnInheritedWidgetOfExactType<InheritedProvider<T>>()
+        : context.getElementForInheritedWidgetOfExactType<InheritedProvider<T>>()?.widget
+    as InheritedProvider<T>;
     return provider.data;
   }
 
   @override
-  _ChangeNotiferProviderState createState() => _ChangeNotiferProviderState<T>();
+  _ChangeNotifierProviderState createState() => _ChangeNotifierProviderState<T>();
 }
 
-class _ChangeNotiferProviderState<T extends ChangeNotifier> extends State<ChangeNotiferProvider<T>> {
+Type _typeOf<T>() => T;
 
-  update(){
-    setState(() {
+class _ChangeNotifierProviderState<T extends ChangeNotifier> extends State<ChangeNotifierProvider> {
 
-    });
+  void update(){
+    setState(() => {});
+  }
+
+  @override
+  void didUpdateWidget(ChangeNotifierProvider<ChangeNotifier> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(oldWidget.data != widget.data) {
+      oldWidget.data.removeListener(update);
+      widget.data.addListener(update);
+    }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     widget.data.addListener(update);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     widget.data.removeListener(update);
   }
 
   @override
-  void didUpdateWidget(ChangeNotiferProvider<ChangeNotifier> oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
-    if(oldWidget.data != widget.data) {
-      oldWidget.data.removeListener(update);
-      widget.data.addListener(update);
-    }
-
-  }
-  
-  @override
   Widget build(BuildContext context) {
-    return InheritedProvider<T>(data: widget.data, child: widget.child,);
-  }
-}
-
-
-
-// 这是一个便捷类，会获得当前context和指定数据类型的Provider
-class Consumer<T> extends StatelessWidget {
-  Consumer({
-    Key key,
-    @required this.builder,
-    this.isListener = true
-  })  : assert(builder != null),
-        super(key: key);
-
-  final bool isListener;
-
-  final Widget Function(BuildContext context, T value) builder;
-
-  @override
-  Widget build(BuildContext context) {
-    return builder(
-      context,
-      ChangeNotiferProvider.of<T>(context, isListener: isListener), //自动获取Model
+    return InheritedProvider<T>(
+          data: widget.data,
+          child: widget.child,
     );
   }
 }
-
-
 
 class Item{
   double price;
@@ -107,45 +91,86 @@ class Item{
   Item(this.price, this.count);
 }
 
-class Cart extends ChangeNotifier{
-  final List<Item> _items = [];
+class Cart extends ChangeNotifier {
 
-  double get totalPrice => _items.fold(0, (value, item) => value + item.count * item.price);
+  final List<Item> _list = [];
 
-  addItem(Item item){
-    _items.add(item);
+  double get totalPrice => _list.fold(3,
+          (previousValue, element) => previousValue + element.count * element.price);
+
+  void add(Item item){
+    _list.add(item);
     notifyListeners();
   }
-
 }
 
-class CartProviderDemo extends StatefulWidget {
-  @override
-  _CartProviderDemoState createState() => _CartProviderDemoState();
-}
+class Consumer<T> extends StatelessWidget{
+  Consumer({
+    Key key,
+     this.builder,
+     this.isListener = true
+  });
 
-class _CartProviderDemoState extends State<CartProviderDemo> {
-
-  final Cart cart = Cart();
+  final bool isListener;
+  final Widget Function(BuildContext context, T value) builder;
 
   @override
   Widget build(BuildContext context) {
+    return builder(context, ChangeNotifierProvider.of<T>(context, isListener: isListener));
+  }
+}
+
+
+class CartProviderDemo extends StatefulWidget {
+  @override
+  _CartProviderWdigetState createState() => _CartProviderWdigetState();
+}
+
+class _CartProviderWdigetState extends State<CartProviderDemo> {
+
+  final Cart cart = Cart();
+  @override
+  Widget build(BuildContext context) {
+    println(" demo build");
     return Center(
-      child: ChangeNotiferProvider(
-        data: cart,
-        child: Column(
-          children: <Widget>[
-            Consumer<Cart>(builder: (context, cart) => Text("totleprice:  ${cart.totalPrice.toString()}")),
-            Consumer<Cart>(isListener: false, builder: (context, cart){
-              print(" mylog:      raiseButton  ");
-              return RaisedButton(
-                onPressed: () => cart.addItem(Item(10, 2)),
-                child: Text("添加商品"),
-              );
-            }),
-          ],
-        ),
+      child: ChangeNotifierProvider(
+          data: cart,
+          child: Column(
+            children: <Widget>[
+              Consumer<Cart>(
+                builder: (context, cart){
+                  return Text("总价：${cart.totalPrice}");
+                },
+              ),
+              Builder(builder: (context){
+                return RaisedButton(onPressed: (){
+                  // 此处 context是 Builder 是  InheritedProvider 子节点
+                  ChangeNotifierProvider
+                      .of<Cart>(context, isListener: false)
+                  // cart
+                      .add(Item(20, 3));
+                });
+              }),
+              RaisedButton(onPressed: (){
+                // 此处 context是 CartProviderDemo 所以找不到 向上查找
+                ChangeNotifierProvider
+                    .of<Cart>(context, isListener: false)
+                // cart
+                    .add(Item(10, 3));
+              }),
+              Consumer<Cart>(isListener: false, builder: (context, cart){
+                print(" mylog:      raiseButton  ");
+                return RaisedButton(
+                  onPressed: () => cart.add(Item(10, 2)),
+                  child: Text("添加商品"),
+                );
+              })
+            ],
+          )
       ),
     );
   }
 }
+
+
+
